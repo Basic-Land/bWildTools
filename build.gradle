@@ -52,7 +52,6 @@ repositories {
             }
         }
     }
-
 }
 
 dependencies {
@@ -63,27 +62,28 @@ dependencies {
     compileOnly "org.spigotmc:v1_7_R3:latest"
     compileOnly 'org.spigotmc:v1_16_R3-Tuinity:latest'
     // Plugin Hooks
-    compileOnly "com.cloth:ChunkCollectors:latest"
+    // compileOnly "com.cloth:ChunkCollectors:latest"
     compileOnly "dev.warse:ChunkHoppers:latest"
-    compileOnly "com.zrips:CMI:latest"
+    // compileOnly "com.zrips:CMI:latest"
     compileOnly "com.earth2me:Essentials-2.16:latest"
     compileOnly "com.massivecraft:Factions:latest"
     compileOnly "com.massivecraft:MassiveCore:latest"
     compileOnly "com.drtshock:FactionsUUID:latest"
     compileOnly "com.drtshock:FactionsUUID-New:latest"
-    compileOnly "net.brcdev:ShopGUIPlus-1.43:latest"
+    compile files("../../bAntiDupe-1.3.jar")
+    // compileOnly "net.brcdev:ShopGUIPlus-1.43:latest"
     compileOnly "net.prosavage:FactionsX:latest"
     compileOnly "net.prosavage:FactionsX-TNTAddon:latest"
     compileOnly "me.ryanhamshire:GriefPrevention:latest"
     compileOnly "com.pablo67340:GUIShop:latest"
-    compileOnly "me.angeschossen:Lands:latest"
-    compileOnly "com.nossr50:mcMMO-2:latest"
+    // compileOnly "me.angeschossen:Lands:latest"
+    // compileOnly "com.nossr50:mcMMO-2:latest"
     compileOnly "com.vk2gpz:MergedSpawnerAPI:latest"
-    compileOnly "me.swanis:SuperMobCoins:latest"
+   //  compileOnly "me.swanis:SuperMobCoins:latest"
     compileOnly "com.newtjam:NewtShop:latest"
     compileOnly "su.fogus:FogusCore:latest"
-    compileOnly "su.nightexpress:QuantumShop:latest"
-    compileOnly "com.zrips:Residence:latest"
+    // compileOnly "su.nightexpress:QuantumShop:latest"
+    // compileOnly "com.zrips:Residence:latest"
     compileOnly "de.dustplanet:SilkSpawners:latest"
     compileOnly "com.palmergames:Towny:latest"
     compileOnly "net.milkbowl:Vault:latest"

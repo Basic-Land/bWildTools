@@ -7,7 +7,6 @@ import com.bgsoftware.wildtools.handlers.EditorHandler;
 import com.bgsoftware.wildtools.handlers.EventsHandler;
 import com.bgsoftware.wildtools.handlers.ToolsHandler;
 import com.bgsoftware.wildtools.hooks.PaperHook;
-import com.bgsoftware.wildtools.hooks.SuperMobCoinsHook;
 import com.bgsoftware.wildtools.listeners.AnvilListener;
 import com.bgsoftware.wildtools.metrics.Metrics;
 import org.bukkit.enchantments.Enchantment;
@@ -19,7 +18,6 @@ import com.bgsoftware.wildtools.handlers.DataHandler;
 import com.bgsoftware.wildtools.handlers.RecipesHandler;
 import com.bgsoftware.wildtools.listeners.BlocksListener;
 import com.bgsoftware.wildtools.listeners.EditorListener;
-import com.bgsoftware.wildtools.listeners.McMMOListener;
 import com.bgsoftware.wildtools.listeners.PlayerListener;
 import com.bgsoftware.wildtools.nms.NMSAdapter;
 
@@ -58,8 +56,6 @@ public final class WildToolsPlugin extends JavaPlugin implements WildTools {
         getServer().getPluginManager().registerEvents(new BlocksListener(this), this);
         getServer().getPluginManager().registerEvents(new PlayerListener(this), this);
         getServer().getPluginManager().registerEvents(new EditorListener(this), this);
-        if(getServer().getPluginManager().isPluginEnabled("mcMMO"))
-            getServer().getPluginManager().registerEvents(new McMMOListener(this), this);
 
         CommandsHandler commandsHandler = new CommandsHandler(this);
         getCommand("tools").setExecutor(commandsHandler);
@@ -106,6 +102,7 @@ public final class WildToolsPlugin extends JavaPlugin implements WildTools {
         try {
             nmsAdapter = (NMSAdapter) Class.forName("com.bgsoftware.wildtools.nms.NMSAdapter_" + version).newInstance();
         } catch (ClassNotFoundException | IllegalAccessException | InstantiationException e){
+            e.printStackTrace();
             getLogger().info("Error while loading adapter - unknown adapter " + version + "... Please contact @Ome_R");
         }
     }
@@ -116,9 +113,6 @@ public final class WildToolsPlugin extends JavaPlugin implements WildTools {
         log(" - Using " + nmsAdapter.getVersion() + " adapter.");
         providersHandler.loadData();
         log("Loading providers done (Took " + (System.currentTimeMillis() - startTime) + "ms)");
-
-        if(Bukkit.getPluginManager().isPluginEnabled("SuperMobCoins"))
-            SuperMobCoinsHook.register();
 
         if(!isVaultEnabled()) {
             log("");

@@ -70,7 +70,9 @@ import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.InventoryView;
+import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ShapedRecipe;
+import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.material.CocoaPlant;
 import org.bukkit.material.Crops;
 import org.bukkit.material.NetherWarts;
@@ -523,6 +525,11 @@ public final class NMSAdapter_v1_12_R1 implements NMSAdapter {
     public void setExpCost(InventoryView inventoryView, int expCost) {
         ContainerAnvil container = (ContainerAnvil) ((CraftInventoryView) inventoryView).getHandle();
         container.levelCost = expCost;
+    }
+
+    @Override
+    public void hideFlags(ItemMeta itemMeta) {
+        itemMeta.addItemFlags(ItemFlag.values());
     }
 
     @Override

@@ -1,5 +1,6 @@
 package com.bgsoftware.wildtools.utils.items;
 
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
@@ -50,6 +51,7 @@ public final class ItemBuilder {
 
         itemStack = new ItemStack(type, 1, (short) damage);
         itemMeta = itemStack.getItemMeta();
+        plugin.getNMSAdapter().hideFlags(itemMeta);
 
         if(section.contains("name"))
             withName(section.getString("name"));

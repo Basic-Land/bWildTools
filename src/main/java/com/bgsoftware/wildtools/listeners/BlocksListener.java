@@ -5,6 +5,9 @@ import com.bgsoftware.wildtools.WildToolsPlugin;
 import com.bgsoftware.wildtools.objects.tools.WTool;
 
 import com.bgsoftware.wildtools.utils.items.ToolItemStack;
+import cz.devfire.bantidupe.AntiDupe;
+import cz.devfire.bantidupe.AntiDupeAPI;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.block.BlockFace;
 import org.bukkit.event.EventPriority;
@@ -73,6 +76,24 @@ public final class BlocksListener implements Listener {
             if (tool.onBlockBreak(e)) {
                 e.setCancelled(true);
                 tool.setLastUse(e.getPlayer().getUniqueId());
+
+                if (Bukkit.getPluginManager().isPluginEnabled("bAntiDupe")) {
+                    AntiDupeAPI api = AntiDupe.getApi();
+
+                    if (api.isDuped(toolItemStack.getItem())) {
+                        api.warnPlayer(e.getPlayer());
+                        api.removeItem(toolItemStack.getItem());
+                        e.getPlayer().getInventory().remove(e.getPlayer().getItemInHand());
+                        e.setCancelled(true);
+                        return;
+                    }
+
+                    if (tool.getDurability(e.getPlayer(),e.getPlayer().getItemInHand()) -1 == 0) {
+                        api.removeItem(toolItemStack.getItem());
+                    } else {
+                        api.renewUid(toolItemStack.getItem(),false,false);
+                    }
+                }
             }
 
             if (tool.isPrivate()) {
@@ -143,6 +164,24 @@ public final class BlocksListener implements Listener {
             if (toolInteract) {
                 e.setCancelled(true);
                 tool.setLastUse(e.getPlayer().getUniqueId());
+
+                if (Bukkit.getPluginManager().isPluginEnabled("bAntiDupe")) {
+                    AntiDupeAPI api = AntiDupe.getApi();
+
+                    if (api.isDuped(toolItemStack.getItem())) {
+                        api.warnPlayer(e.getPlayer());
+                        api.removeItem(toolItemStack.getItem());
+                        e.getPlayer().getInventory().remove(e.getPlayer().getItemInHand());
+                        e.setCancelled(true);
+                        return;
+                    }
+
+                    if (tool.getDurability(e.getPlayer(),e.getPlayer().getItemInHand()) -1 == 0) {
+                        api.removeItem(toolItemStack.getItem());
+                    } else {
+                        api.renewUid(toolItemStack.getItem(),false,false);
+                    }
+                }
             }
 
             if (tool.isPrivate()) {
@@ -212,6 +251,24 @@ public final class BlocksListener implements Listener {
             if (tool.onAirInteract(new PlayerInteractEvent(e.getPlayer(), Action.RIGHT_CLICK_AIR, toolItemStack.getItem(), null, BlockFace.UP))) {
                 e.setCancelled(true);
                 tool.setLastUse(e.getPlayer().getUniqueId());
+
+                if (Bukkit.getPluginManager().isPluginEnabled("bAntiDupe")) {
+                    AntiDupeAPI api = AntiDupe.getApi();
+
+                    if (api.isDuped(toolItemStack.getItem())) {
+                        api.warnPlayer(e.getPlayer());
+                        api.removeItem(toolItemStack.getItem());
+                        e.getPlayer().getInventory().remove(e.getPlayer().getItemInHand());
+                        e.setCancelled(true);
+                        return;
+                    }
+
+                    if (tool.getDurability(e.getPlayer(),e.getPlayer().getItemInHand()) -1 == 0) {
+                        api.removeItem(toolItemStack.getItem());
+                    } else {
+                        api.renewUid(toolItemStack.getItem(),false,false);
+                    }
+                }
             }
 
             if (tool.isPrivate()) {

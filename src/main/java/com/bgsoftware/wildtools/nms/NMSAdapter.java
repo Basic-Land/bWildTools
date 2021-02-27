@@ -18,6 +18,7 @@ import org.bukkit.inventory.InventoryView;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.Recipe;
 import org.bukkit.inventory.ShapedRecipe;
+import org.bukkit.inventory.meta.ItemMeta;
 
 import java.lang.reflect.Field;
 import java.util.Collection;
@@ -92,6 +93,8 @@ public interface NMSAdapter {
     default void setExpCost(InventoryView inventoryView, int expCost){
 
     }
+
+    void hideFlags(ItemMeta itemMeta);
 
     default int getExpCost(InventoryView inventoryView){
         return 0;

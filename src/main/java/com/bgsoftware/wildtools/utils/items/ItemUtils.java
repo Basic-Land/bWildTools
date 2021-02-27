@@ -3,6 +3,9 @@ package com.bgsoftware.wildtools.utils.items;
 import com.bgsoftware.wildtools.Locale;
 import com.bgsoftware.wildtools.objects.WMaterial;
 import com.bgsoftware.wildtools.objects.tools.WHarvesterTool;
+import com.bgsoftware.wildtools.utils.NBT;
+import cz.devfire.bantidupe.AntiDupe;
+import cz.devfire.bantidupe.AntiDupeAPI;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
@@ -39,12 +42,27 @@ public final class ItemUtils {
     }
 
     public static void formatItemStack(ToolItemStack toolItemStack){
+        String uid = "";
+
+        NBT itemNBT = new NBT(toolItemStack.getItem());
+
+        if (itemNBT.hasNBTTags()) {
+            uid = itemNBT.getString("antiDupeUID");
+        }
+
+        if (uid.isEmpty()) {
+            AntiDupeAPI api = AntiDupe.getApi();
+            api.saveItem(toolItemStack.getItem(),false);
+            uid = api.getUid(toolItemStack.getItem());
+        }
+
         Tool tool = toolItemStack.getTool();
 
         if(tool == null)
             return;
 
         ItemMeta meta = toolItemStack.getItemMeta();
+        plugin.getNMSAdapter().hideFlags(meta);
         int usesLeft = toolItemStack.getUses();
         String ownerName = "None", ownerUUID = toolItemStack.getOwner();
         String enabled = Locale.HARVESTER_SELL_ENABLED.getMessage(), disabled = Locale.HARVESTER_SELL_DISABLED.getMessage();
@@ -66,11 +84,13 @@ public final class ItemUtils {
         if(meta.hasLore()){
             List<String> lore = new ArrayList<>();
 
-            for(String line : tool.getItemStack().getItemMeta().getLore())
+            for(String line : tool.getItemStack().getItemMeta().getLore()) {
                 lore.add(line
                         .replace("{}", usesLeft + "")
                         .replace("{owner}", ownerName)
-                        .replace("{sell-mode}", toolItemStack.hasSellMode() ? enabled : disabled));
+                        .replace("{sell-mode}", toolItemStack.hasSellMode() ? enabled : disabled)
+                        .replace("{uid}", uid));
+            }
 
             meta.setLore(lore);
         }

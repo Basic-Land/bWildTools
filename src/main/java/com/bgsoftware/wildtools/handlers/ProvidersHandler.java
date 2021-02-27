@@ -7,12 +7,9 @@ import com.bgsoftware.wildtools.api.hooks.ContainerProvider;
 import com.bgsoftware.wildtools.hooks.ClaimsProvider_FactionsUUID;
 import com.bgsoftware.wildtools.hooks.ClaimsProvider_FactionsX;
 import com.bgsoftware.wildtools.hooks.ClaimsProvider_GriefPrevention;
-import com.bgsoftware.wildtools.hooks.ClaimsProvider_Lands;
 import com.bgsoftware.wildtools.hooks.ClaimsProvider_MassiveFactions;
-import com.bgsoftware.wildtools.hooks.ClaimsProvider_Residence;
 import com.bgsoftware.wildtools.hooks.ClaimsProvider_Towny;
 import com.bgsoftware.wildtools.hooks.ClaimsProvider_Villages;
-import com.bgsoftware.wildtools.hooks.ContainerProvider_ChunkCollectors;
 import com.bgsoftware.wildtools.hooks.ContainerProvider_Default;
 import com.bgsoftware.wildtools.hooks.ContainerProvider_WildChests;
 import com.bgsoftware.wildtools.api.hooks.DropsProvider;
@@ -20,10 +17,8 @@ import com.bgsoftware.wildtools.hooks.DropsProvider_ChunkHoppers;
 import com.bgsoftware.wildtools.hooks.DropsProvider_MergedSpawner;
 import com.bgsoftware.wildtools.hooks.DropsProvider_SilkSpawners;
 import com.bgsoftware.wildtools.hooks.DropsProvider_WildStacker;
-import com.bgsoftware.wildtools.hooks.DropsProvider_mcMMO;
 import com.bgsoftware.wildtools.hooks.DropsProviders_WildToolsSpawners;
 import com.bgsoftware.wildtools.hooks.FactionsProvider_FactionsX;
-import com.bgsoftware.wildtools.hooks.PricesProvider_CMI;
 import com.bgsoftware.wildtools.hooks.FactionsProvider;
 import com.bgsoftware.wildtools.hooks.FactionsProvider_Default;
 import com.bgsoftware.wildtools.api.hooks.PricesProvider;
@@ -31,11 +26,8 @@ import com.bgsoftware.wildtools.hooks.PricesProvider_Default;
 import com.bgsoftware.wildtools.hooks.PricesProvider_Essentials;
 import com.bgsoftware.wildtools.hooks.PricesProvider_GUIShop;
 import com.bgsoftware.wildtools.hooks.PricesProvider_NewtShop;
-import com.bgsoftware.wildtools.hooks.PricesProvider_QuantumShop;
-import com.bgsoftware.wildtools.hooks.PricesProvider_ShopGUIPlus;
 
 import com.bgsoftware.wildtools.api.hooks.SellInfo;
-import com.gmail.nossr50.datatypes.skills.PrimarySkillType;
 import com.google.common.collect.Lists;
 
 import net.milkbowl.vault.economy.Economy;
@@ -182,9 +174,7 @@ public final class ProvidersHandler implements ProvidersManager {
     public void loadData(){
         if(pricesProvider == null) {
             // Prices Plugin Hookup
-            if (pricesPlugin.equalsIgnoreCase("ShopGUIPlus") && Bukkit.getPluginManager().isPluginEnabled("ShopGUIPlus"))
-                pricesProvider = new PricesProvider_ShopGUIPlus();
-            else if (pricesPlugin.equalsIgnoreCase("GUIShop") && Bukkit.getPluginManager().isPluginEnabled("GUIShop"))
+            if (pricesPlugin.equalsIgnoreCase("GUIShop") && Bukkit.getPluginManager().isPluginEnabled("GUIShop"))
                 pricesProvider = new PricesProvider_GUIShop();
             else if (pricesPlugin.equalsIgnoreCase("Essentials") && Bukkit.getPluginManager().isPluginEnabled("Essentials")) {
                 try {
@@ -192,12 +182,9 @@ public final class ProvidersHandler implements ProvidersManager {
                 } catch (Throwable ex) {
                     pricesProvider = (PricesProvider) getInstance("com.bgsoftware.wildtools.hooks.PricesProvider_EssentialsOld");
                 }
-            } else if (pricesPlugin.equals("CMI") && Bukkit.getPluginManager().isPluginEnabled("CMI"))
-                pricesProvider = new PricesProvider_CMI();
+            }
             else if (pricesPlugin.equalsIgnoreCase("newtShop") && Bukkit.getPluginManager().isPluginEnabled("newtShop"))
                 pricesProvider = new PricesProvider_NewtShop();
-            else if (pricesPlugin.equalsIgnoreCase("QuantumShop") && Bukkit.getPluginManager().isPluginEnabled("QuantumShop"))
-                pricesProvider = new PricesProvider_QuantumShop();
             else pricesProvider = new PricesProvider_Default();
         }
 
@@ -214,14 +201,6 @@ public final class ProvidersHandler implements ProvidersManager {
         // Drops hookup
         if(Bukkit.getPluginManager().isPluginEnabled("ChunkHoppers")) {
             addDropsProvider(new DropsProvider_ChunkHoppers());
-        }
-        if(Bukkit.getPluginManager().isPluginEnabled("mcMMO")){
-            try{
-                PrimarySkillType.valueOf("HERBALISM");
-                addDropsProvider(new DropsProvider_mcMMO());
-            }catch(Throwable ex){
-                addDropsProvider((DropsProvider) getInstance("com.bgsoftware.wildtools.hooks.DropsProvider_mcMMOOld"));
-            }
         }
 
         // Spawners drops
@@ -244,9 +223,6 @@ public final class ProvidersHandler implements ProvidersManager {
         }
 
         // Containers hookup
-        if(Bukkit.getPluginManager().isPluginEnabled("ChunkCollectors")){
-            addContainerProvider(new ContainerProvider_ChunkCollectors());
-        }
         if(Bukkit.getPluginManager().isPluginEnabled("WildChests")){
             addContainerProvider(new ContainerProvider_WildChests(plugin));
         }
@@ -264,12 +240,6 @@ public final class ProvidersHandler implements ProvidersManager {
         }
         if(Bukkit.getPluginManager().isPluginEnabled("GriefPrevention")){
             addClaimsProvider(new ClaimsProvider_GriefPrevention());
-        }
-        if(Bukkit.getPluginManager().isPluginEnabled("Lands")){
-            addClaimsProvider(new ClaimsProvider_Lands());
-        }
-        if(Bukkit.getPluginManager().isPluginEnabled("Residence")){
-            addClaimsProvider(new ClaimsProvider_Residence());
         }
         if(Bukkit.getPluginManager().isPluginEnabled("Towny")){
             addClaimsProvider(new ClaimsProvider_Towny());
