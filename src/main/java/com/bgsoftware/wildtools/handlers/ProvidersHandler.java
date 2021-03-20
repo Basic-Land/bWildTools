@@ -155,7 +155,9 @@ public final class ProvidersHandler implements ProvidersManager {
     public void loadData(){
         if(pricesProvider == null) {
             // Prices Plugin Hookup
-            if (pricesPlugin.equalsIgnoreCase("GUIShop") && Bukkit.getPluginManager().isPluginEnabled("GUIShop"))
+            if (pricesPlugin.equalsIgnoreCase("ShopGUIPlus") && Bukkit.getPluginManager().isPluginEnabled("ShopGUIPlus"))
+                pricesProvider = new PricesProvider_ShopGUIPlus();
+            else if (pricesPlugin.equalsIgnoreCase("GUIShop") && Bukkit.getPluginManager().isPluginEnabled("GUIShop"))
                 pricesProvider = new PricesProvider_GUIShop();
             else if (pricesPlugin.equalsIgnoreCase("Essentials") && Bukkit.getPluginManager().isPluginEnabled("Essentials")) {
                 try {
