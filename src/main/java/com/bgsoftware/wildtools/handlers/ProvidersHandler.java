@@ -4,28 +4,9 @@ import com.bgsoftware.wildtools.WildToolsPlugin;
 import com.bgsoftware.wildtools.api.handlers.ProvidersManager;
 import com.bgsoftware.wildtools.api.hooks.ClaimsProvider;
 import com.bgsoftware.wildtools.api.hooks.ContainerProvider;
-import com.bgsoftware.wildtools.hooks.ClaimsProvider_FactionsUUID;
-import com.bgsoftware.wildtools.hooks.ClaimsProvider_FactionsX;
-import com.bgsoftware.wildtools.hooks.ClaimsProvider_GriefPrevention;
-import com.bgsoftware.wildtools.hooks.ClaimsProvider_MassiveFactions;
-import com.bgsoftware.wildtools.hooks.ClaimsProvider_Towny;
-import com.bgsoftware.wildtools.hooks.ClaimsProvider_Villages;
-import com.bgsoftware.wildtools.hooks.ContainerProvider_Default;
-import com.bgsoftware.wildtools.hooks.ContainerProvider_WildChests;
+import com.bgsoftware.wildtools.hooks.*;
 import com.bgsoftware.wildtools.api.hooks.DropsProvider;
-import com.bgsoftware.wildtools.hooks.DropsProvider_ChunkHoppers;
-import com.bgsoftware.wildtools.hooks.DropsProvider_MergedSpawner;
-import com.bgsoftware.wildtools.hooks.DropsProvider_SilkSpawners;
-import com.bgsoftware.wildtools.hooks.DropsProvider_WildStacker;
-import com.bgsoftware.wildtools.hooks.DropsProviders_WildToolsSpawners;
-import com.bgsoftware.wildtools.hooks.FactionsProvider_FactionsX;
-import com.bgsoftware.wildtools.hooks.FactionsProvider;
-import com.bgsoftware.wildtools.hooks.FactionsProvider_Default;
 import com.bgsoftware.wildtools.api.hooks.PricesProvider;
-import com.bgsoftware.wildtools.hooks.PricesProvider_Default;
-import com.bgsoftware.wildtools.hooks.PricesProvider_Essentials;
-import com.bgsoftware.wildtools.hooks.PricesProvider_GUIShop;
-import com.bgsoftware.wildtools.hooks.PricesProvider_NewtShop;
 
 import com.bgsoftware.wildtools.api.hooks.SellInfo;
 import com.google.common.collect.Lists;
@@ -182,6 +163,9 @@ public final class ProvidersHandler implements ProvidersManager {
                 } catch (Throwable ex) {
                     pricesProvider = (PricesProvider) getInstance("com.bgsoftware.wildtools.hooks.PricesProvider_EssentialsOld");
                 }
+            }
+            else if (pricesPlugin.equalsIgnoreCase("bShop") && Bukkit.getPluginManager().isPluginEnabled("bShop")) {
+                pricesProvider = new PricesProvider_bShop();
             }
             else if (pricesPlugin.equalsIgnoreCase("newtShop") && Bukkit.getPluginManager().isPluginEnabled("newtShop"))
                 pricesProvider = new PricesProvider_NewtShop();

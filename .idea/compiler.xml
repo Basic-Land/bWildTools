@@ -1,6 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="CompilerConfiguration">
-    <bytecodeTargetLevel target="11" />
+    <bytecodeTargetLevel target="13">
+      <module name="WildTools" target="13" />
+      <module name="WildTools.API" target="13" />
+      <module name="WildTools.API.main" target="13" />
+      <module name="WildTools.API.test" target="13" />
+      <module name="WildTools.main" target="13" />
+      <module name="WildTools.test" target="13" />
+      <module name="WildTools.v1_12_R1" target="13" />
+      <module name="WildTools.v1_12_R1.main" target="13" />
+      <module name="WildTools.v1_12_R1.test" target="13" />
+      <module name="WildTools.v1_16_R3" target="13" />
+      <module name="WildTools.v1_16_R3.main" target="13" />
+      <module name="WildTools.v1_16_R3.test" target="13" />
+    </bytecodeTargetLevel>
   </component>
 </project>
