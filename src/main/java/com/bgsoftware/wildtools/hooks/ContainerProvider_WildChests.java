@@ -7,6 +7,8 @@ import com.bgsoftware.wildtools.WildToolsPlugin;
 import com.bgsoftware.wildtools.api.hooks.ContainerProvider;
 import com.bgsoftware.wildtools.api.hooks.SoldItem;
 import com.bgsoftware.wildtools.api.hooks.SellInfo;
+import com.google.common.collect.Maps;
+import cz.devfire.bshop.Shop;
 import org.bukkit.Material;
 import org.bukkit.block.BlockState;
 import org.bukkit.entity.Player;
@@ -51,10 +53,22 @@ public final class ContainerProvider_WildChests implements ContainerProvider {
                 for(int i = 0; i < slots; i++){
                     totalEarnings += soldItem.getPrice() * Integer.MAX_VALUE;
                     amount = amount.subtract(BigInteger.valueOf(Integer.MAX_VALUE));
+
+                    HashMap<String, Integer> sell = Maps.newHashMap();
+                    sell.put(itemStack.getType().name(), Integer.MAX_VALUE);
+                    Shop.getApi().updatePrices(sell);
                 }
 
                 totalEarnings += soldItem.getPrice() * amount.intValue();
+
+                HashMap<String, Integer> sell = Maps.newHashMap();
+                sell.put(itemStack.getType().name(), amount.intValue());
+                Shop.getApi().updatePrices(sell);
             } else {
+                HashMap<String, Integer> sell = Maps.newHashMap();
+                sell.put(itemStack.getType().name(), amount.intValue());
+                Shop.getApi().updatePrices(sell);
+
                 totalEarnings += soldItem.getPrice() * amount.intValue();
             }
 

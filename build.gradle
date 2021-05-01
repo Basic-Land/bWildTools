@@ -71,7 +71,7 @@ dependencies {
     compileOnly "com.drtshock:FactionsUUID:latest"
     compileOnly "com.drtshock:FactionsUUID-New:latest"
     compile files("../../bAntiDupe-1.3.jar")
-    compile files("../../bShop-1.1.jar")
+    compile files("../../bShop-1.2.jar")
     compile files("../../ShopGUIPlus-1.49.0.jar")
     // compileOnly "net.brcdev:ShopGUIPlus-1.43:latest"
     compileOnly "net.prosavage:FactionsX:latest"
