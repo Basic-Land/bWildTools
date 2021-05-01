@@ -37,25 +37,25 @@ public final class ContainerProvider_WildChests implements ContainerProvider {
         Map<Integer, SoldItem> toSell = new HashMap<>();
         double totalEarnings = 0;
 
-        if(chest instanceof StorageChest){
+        if (chest instanceof StorageChest) {
             ItemStack itemStack = ((StorageChest) chest).getItemStack();
+            itemStack.setAmount(1);
+
             BigInteger amount = ((StorageChest) chest).getExactAmount();
             int slots = amount.divide(BigInteger.valueOf(Integer.MAX_VALUE)).intValue();
 
-            for(int i = 0; i < slots; i++){
-                itemStack.setAmount(Integer.MAX_VALUE);
-                if(plugin.getProviders().canSellItem(player, itemStack)) {
-                    SoldItem soldItem = new SoldItem(itemStack.clone(), plugin.getProviders().getPrice(player, itemStack));
-                    toSell.put(0, soldItem);
-                    totalEarnings += soldItem.getPrice();
-                }
-            }
+            SoldItem soldItem = new SoldItem(itemStack.clone(),plugin.getProviders().getPrice(player, itemStack));
+            toSell.put(0, soldItem);
 
-            itemStack.setAmount(amount.remainder(BigInteger.valueOf(Integer.MAX_VALUE)).intValue());
-            if(plugin.getProviders().canSellItem(player, itemStack)) {
-                SoldItem soldItem = new SoldItem(itemStack.clone(), plugin.getProviders().getPrice(player, itemStack));
-                toSell.put(0, soldItem);
-                totalEarnings += soldItem.getPrice();
+            if (slots > 0) {
+                for(int i = 0; i < slots; i++){
+                    totalEarnings += soldItem.getPrice() * Integer.MAX_VALUE;
+                    amount = amount.subtract(BigInteger.valueOf(Integer.MAX_VALUE));
+                }
+
+                totalEarnings += soldItem.getPrice() * amount.intValue();
+            } else {
+                totalEarnings += soldItem.getPrice() * amount.intValue();
             }
 
             return new SellInfo(toSell, totalEarnings);

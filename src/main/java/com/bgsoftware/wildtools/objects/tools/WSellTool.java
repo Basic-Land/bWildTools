@@ -8,6 +8,7 @@ import com.bgsoftware.wildtools.api.hooks.SellInfo;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.block.BlockState;
+import org.bukkit.block.Chest;
 import org.bukkit.event.player.PlayerInteractEvent;
 import com.bgsoftware.wildtools.Locale;
 import com.bgsoftware.wildtools.api.events.SellWandUseEvent;

@@ -209,7 +209,7 @@ public final class ProvidersHandler implements ProvidersManager {
         }
 
         // Containers hookup
-        if(Bukkit.getPluginManager().isPluginEnabled("WildChests")){
+        if(Bukkit.getPluginManager().isPluginEnabled("bWildChests")){
             addContainerProvider(new ContainerProvider_WildChests(plugin));
         }
 

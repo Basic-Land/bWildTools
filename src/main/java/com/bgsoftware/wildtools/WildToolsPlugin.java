@@ -74,7 +74,7 @@ public final class WildToolsPlugin extends JavaPlugin implements WildTools {
         PaperHook.init();
 
         editorHandler = new EditorHandler(this);
-        recipesHandler = new RecipesHandler(this);
+        // recipesHandler = new RecipesHandler(this);
 
         if (Updater.isOutdated()) {
             log("");

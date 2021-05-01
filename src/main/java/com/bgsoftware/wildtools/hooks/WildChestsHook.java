@@ -35,7 +35,7 @@ public final class WildChestsHook {
     }
 
     public static boolean isWildChest(Chest chest){
-        if(Bukkit.getPluginManager().isPluginEnabled("WildChests")) {
+        if(Bukkit.getPluginManager().isPluginEnabled("bWildChests")) {
             com.bgsoftware.wildchests.api.objects.chests.Chest wildChest = WildChestsAPI.getChest(chest.getLocation());
             return wildChest != null;
         }
@@ -43,7 +43,7 @@ public final class WildChestsHook {
     }
 
     public static void addItems(Location location, Inventory chestInventory, List<ItemStack> itemStackList){
-        if(Bukkit.getPluginManager().isPluginEnabled("WildChests")){
+        if(Bukkit.getPluginManager().isPluginEnabled("bWildChests")){
             com.bgsoftware.wildchests.api.objects.chests.Chest wildChest = WildChestsAPI.getChest(location);
             if(wildChest != null){
                 wildChest.addItems(itemStackList.toArray(new ItemStack[]{}));

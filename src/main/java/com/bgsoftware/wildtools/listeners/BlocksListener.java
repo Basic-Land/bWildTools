@@ -144,44 +144,38 @@ public final class BlocksListener implements Listener {
 
         try {
             WTool.toolBlockBreak.add(e.getPlayer().getUniqueId());
+            tool.setLastUse(e.getPlayer().getUniqueId());
 
-            boolean toolInteract = false;
+            if (Bukkit.getPluginManager().isPluginEnabled("bAntiDupe")) {
+                AntiDupeAPI api = AntiDupe.getApi();
+
+                if (api.isDuped(toolItemStack.getItem())) {
+                    api.warnPlayer(e.getPlayer());
+                    api.removeItem(toolItemStack.getItem());
+                    e.getPlayer().getInventory().remove(e.getPlayer().getItemInHand());
+                    e.setCancelled(true);
+                    return;
+                }
+
+                if (tool.getDurability(e.getPlayer(),e.getPlayer().getItemInHand()) -1 == 0) {
+                    api.removeItem(toolItemStack.getItem());
+                } else {
+                    api.renewUid(toolItemStack.getItem(),false,false);
+                }
+            }
 
             switch (e.getAction()) {
                 case RIGHT_CLICK_AIR:
-                    toolInteract = tool.onAirInteract(e);
+                    tool.onAirInteract(e);
                     break;
                 case RIGHT_CLICK_BLOCK:
                     if (!e.isCancelled())
-                        toolInteract = tool.onBlockInteract(e);
+                        tool.onBlockInteract(e);
                     break;
                 case LEFT_CLICK_BLOCK:
                     if (!e.isCancelled())
-                        toolInteract = tool.onBlockHit(e);
+                        tool.onBlockHit(e);
                     break;
-            }
-
-            if (toolInteract) {
-                e.setCancelled(true);
-                tool.setLastUse(e.getPlayer().getUniqueId());
-
-                if (Bukkit.getPluginManager().isPluginEnabled("bAntiDupe")) {
-                    AntiDupeAPI api = AntiDupe.getApi();
-
-                    if (api.isDuped(toolItemStack.getItem())) {
-                        api.warnPlayer(e.getPlayer());
-                        api.removeItem(toolItemStack.getItem());
-                        e.getPlayer().getInventory().remove(e.getPlayer().getItemInHand());
-                        e.setCancelled(true);
-                        return;
-                    }
-
-                    if (tool.getDurability(e.getPlayer(),e.getPlayer().getItemInHand()) -1 == 0) {
-                        api.removeItem(toolItemStack.getItem());
-                    } else {
-                        api.renewUid(toolItemStack.getItem(),false,false);
-                    }
-                }
             }
 
             if (tool.isPrivate()) {
