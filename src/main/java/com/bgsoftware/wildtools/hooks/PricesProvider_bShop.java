@@ -14,6 +14,12 @@ public final class PricesProvider_bShop implements PricesProvider {
 
     @Override
     public double getPrice(Player player, ItemStack itemStack) {
-        return Shop.getApi().getPrice(itemStack);
+        Double price = Shop.getApi().getPrice(itemStack);
+
+        if (price == 0) {
+            return -1;
+        } else {
+            return price;
+        }
     }
 }

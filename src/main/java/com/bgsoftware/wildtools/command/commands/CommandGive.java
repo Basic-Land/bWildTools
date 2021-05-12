@@ -1,15 +1,12 @@
 package com.bgsoftware.wildtools.command.commands;
 
-import com.bgsoftware.wildtools.utils.items.ToolItemStack;
-import com.bgsoftware.wildtools.utils.items.ItemUtils;
-
-import com.bgsoftware.wildtools.utils.NumberUtils;
 import com.bgsoftware.wildtools.Locale;
 import com.bgsoftware.wildtools.WildToolsPlugin;
 import com.bgsoftware.wildtools.api.objects.tools.Tool;
 import com.bgsoftware.wildtools.command.ICommand;
-
-import cz.devfire.bantidupe.AntiDupe;
+import com.bgsoftware.wildtools.utils.NumberUtils;
+import com.bgsoftware.wildtools.utils.items.ItemUtils;
+import com.bgsoftware.wildtools.utils.items.ToolItemStack;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
